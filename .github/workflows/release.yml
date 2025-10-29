@@ -7,8 +7,8 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  REGISTRY: motorqcustomer.azurecr.io
+  IMAGE_NAME: containerd/nydus-snapshotter
 
 jobs:
   build:
@@ -125,8 +125,8 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: motorqcustomer
+          password: ${{ secrets.REGISTRY_PASSWORD }}
       - name: download artifacts
         uses: actions/download-artifact@v4
         with:
@@ -142,7 +142,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: Get the nydusd version
         run: |
-          export NYDUS_STABLE_VER=$(curl -fsSL https://api.github.com/repos/dragonflyoss/nydus/releases/latest | jq -r .tag_name)
+          export NYDUS_STABLE_VER=v2.3.6
           echo "NYDUS_STABLE_VER=$NYDUS_STABLE_VER" >> "$GITHUB_ENV"
           printf 'nydus version is: %s\n' "$NYDUS_STABLE_VER"
       - name: build and push nydus-snapshotter image
@@ -167,8 +167,8 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: motorqcustomer
+          password: ${{ secrets.REGISTRY_PASSWORD }}
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v4
