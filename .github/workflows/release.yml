@@ -23,9 +23,6 @@ jobs:
             build-arch: arm64
             build-linker: aarch64
           - build-os: linux
-            build-arch: s390x
-            build-linker: s390x
-          - build-os: linux
             build-arch: ppc64le
             build-linker: powerpc64le
           - build-os: linux
