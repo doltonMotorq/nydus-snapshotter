@@ -23,9 +23,6 @@ jobs:
             build-arch: arm64
             build-linker: aarch64
           - build-os: linux
-            build-arch: s390x
-            build-linker: s390x
-          - build-os: linux
             build-arch: ppc64le
             build-linker: powerpc64le
           - build-os: linux
@@ -179,7 +176,6 @@ jobs:
             docker manifest create "${tag}" \
               --amend "${tag}-amd64" \
               --amend "${tag}-arm64" \
-              --amend "${tag}-s390x" \
               --amend "${tag}-ppc64le"
             docker manifest push "${tag}"
           done
